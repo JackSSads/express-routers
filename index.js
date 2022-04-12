@@ -1,34 +1,31 @@
-const express = require("express")
-const app = express()
-const port = 3000 // variável ambiente
+const express = require("express");
+const app = express();
+const port = 3000;
 
-const path = require("path")
+const path = require("path");
 
-const users = require('./users')
+const users = require('./users');
 
-// * === ler o body ===*
 app.use(
     express.urlencoded({
         extended: true,
     }),
-)
+);
 
-// aequivos estáticos
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.use(express.json())
-// *===================*
+app.use(express.json());
 
-const basePath = path.join(__dirname, '/templates') // __dirname referencia o diretório atual
+const basePath = path.join(__dirname, '/templates');
 
-app.use('/users', users)
+app.use('/users', users);
 
 app.get('/', (req, res) => {
-    res.sendFile(`${basePath}/index.html`)
-})
+    res.sendFile(`${basePath}/index.html`);
+});
 
 app.use(function (req, res, next) {
-    res.status(404).sendFile(`${basePath}/404.html`)
-})
+    res.status(404).sendFile(`${basePath}/404.html`);
+});
 
-app.listen(port, () => { console.log(`App rodando na porta: ${port}`) })
+app.listen(port, () => { console.log(`App rodando na porta: ${port}`) });
